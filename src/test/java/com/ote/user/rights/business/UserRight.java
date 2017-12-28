@@ -1,4 +1,4 @@
-package com.ote.user.rights;
+package com.ote.user.rights.business;
 
 import com.ote.user.rights.api.Perimeter;
 import lombok.Getter;
