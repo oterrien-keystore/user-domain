@@ -1,11 +1,8 @@
 package com.ote.user.credentials.business;
 
-import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -19,7 +16,16 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+@Slf4j
 public class CredentialTest {
+
+    @Test
+    public void encrypt() {
+
+        String password = "password";
+        String encryptedPassword = "fb498295cc2562c653db9877d5b6b374f47247be19e659d0b7806e958313a25115c38d36b301fa10d0ab6ed2c761ec8a7eca618c109a029126f5c7fd31e1efb6";
+        Assertions.assertThat(encryptedPassword).isEqualTo(Encryptor.getInstance().encrypt(password));
+    }
 
     //@Test
     public void generateNewFile() throws IOException {
