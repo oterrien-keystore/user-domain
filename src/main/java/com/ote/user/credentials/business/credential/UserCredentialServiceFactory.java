@@ -1,4 +1,4 @@
-package com.ote.user.credentials.business;
+package com.ote.user.credentials.business.credential;
 
 import com.ote.user.credentials.api.IUserCredentialService;
 import com.ote.user.credentials.spi.IUserCredentialRepository;

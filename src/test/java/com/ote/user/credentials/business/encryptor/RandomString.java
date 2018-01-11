@@ -1,4 +1,4 @@
-package com.ote.user.credentials.business;
+package com.ote.user.credentials.business.encryptor;
 
 import java.security.SecureRandom;
 import java.util.Locale;

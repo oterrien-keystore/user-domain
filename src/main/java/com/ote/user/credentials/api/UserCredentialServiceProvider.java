@@ -1,6 +1,7 @@
 package com.ote.user.credentials.api;
 
-import com.ote.user.credentials.business.UserCredentialServiceFactory;
+import com.ote.user.credentials.business.credential.UserCredentialServiceFactory;
+import com.ote.user.credentials.business.encryptor.EncryptorServiceFactory;
 import lombok.Getter;
 
 public final class UserCredentialServiceProvider {
