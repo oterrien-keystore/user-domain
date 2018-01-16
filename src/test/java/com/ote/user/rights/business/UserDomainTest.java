@@ -56,11 +56,11 @@ public class UserDomainTest {
         assertions.assertThat(userRights.getPerimeters()).hasSize(1);
         assertions.assertThat(userRights.getPerimeters().get(0).getCode()).isEqualTo("Deal");
         assertions.assertThat(userRights.getPerimeters().get(0).getPrivileges()).hasSize(1);
-        assertions.assertThat(userRights.getPerimeters().get(0).getPrivileges().get(0)).isEqualTo("ReadOnly");
+        assertions.assertThat(userRights.getPerimeters().get(0).getPrivileges()).contains("ReadOnly");
         assertions.assertThat(userRights.getPerimeters().get(0).getPerimeters()).hasSize(1);
-        assertions.assertThat(userRights.getPerimeters().get(0).getPerimeters().get(0).getCode()).isEqualTo("GLE");
-        assertions.assertThat(userRights.getPerimeters().get(0).getPerimeters().get(0).getPrivileges()).hasSize(1);
-        assertions.assertThat(userRights.getPerimeters().get(0).getPerimeters().get(0).getPrivileges().get(0)).isEqualTo("ReadWrite");
+        assertions.assertThat(userRights.getPerimeters().get(0).getPerimeters().stream().map(p -> p.getCode()).findFirst().get()).isEqualTo("GLE");
+        assertions.assertThat(userRights.getPerimeters().get(0).getPerimeters().stream().findFirst().get().getPrivileges()).hasSize(1);
+        assertions.assertThat(userRights.getPerimeters().get(0).getPerimeters().stream().findFirst().get().getPrivileges()).contains("ReadWrite");
         assertions.assertAll();
     }
 

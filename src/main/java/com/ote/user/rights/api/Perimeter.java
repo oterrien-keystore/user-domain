@@ -1,23 +1,25 @@
 package com.ote.user.rights.api;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = "code")
 public class Perimeter {
 
     private final String code;
-    private final List<Perimeter> perimeters = new ArrayList<>();
-    private final List<String> privileges = new ArrayList<>();
+    private final Set<Perimeter> perimeters = new HashSet<>();
+    private final Set<String> privileges = new HashSet<>();
     //private final boolean isAll;
 
     public Perimeter(String code) {
         this.code = code;
-       // isAll = code.endsWith("*");
+        // isAll = code.endsWith("*");
     }
 
 
