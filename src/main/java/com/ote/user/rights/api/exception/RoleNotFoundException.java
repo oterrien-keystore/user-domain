@@ -1,6 +1,6 @@
 package com.ote.user.rights.api.exception;
 
-import com.ote.user.rights.api.PerimeterPath;
+import com.ote.user.rights.api.Path;
 
 public class RoleNotFoundException extends Exception {
 
@@ -11,7 +11,7 @@ public class RoleNotFoundException extends Exception {
         super(String.format(ROLE_APP_NOT_FOUND_MESSAGE, user, application));
     }
 
-    public RoleNotFoundException(String user, String application, PerimeterPath perimeterPath) {
+    public RoleNotFoundException(String user, String application, Path perimeterPath) {
         super(String.format(ROLE_APP_PATH_NOT_FOUND_MESSAGE, user, application, perimeterPath.toString()));
     }
 }

@@ -1,7 +1,7 @@
 package com.ote.user.rights.api;
 
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -10,20 +10,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public final class PerimeterPath implements Iterable<String> {
+public final class Path implements Iterable<String> {
 
-    @Getter
+    private static final String Separator = "/";
+
     private final String[] path;
 
-    private PerimeterPath(List<String> path) {
+    private Path(List<String> path) {
         this(path.toArray(new String[0]));
     }
 
     @Override
     public String toString() {
-        return Arrays.stream(path).collect(Collectors.joining("/"));
+        return stream().collect(Collectors.joining(Separator));
     }
 
     @Override
@@ -31,24 +34,29 @@ public final class PerimeterPath implements Iterable<String> {
         return Arrays.stream(path).iterator();
     }
 
+    public Stream<String> stream() {
+        return StreamSupport.stream(this.spliterator(), false);
+    }
+
     //region Parser
-    public static class Parser implements Supplier<PerimeterPath> {
+    public static class Parser implements Supplier<Path> {
 
         private final List<String> path = new ArrayList<>();
 
         public Parser(String element) {
-            String[] s = element.split("/");
+            String[] s = element.split(Separator);
             Arrays.stream(s).forEach(p -> path.add(p));
         }
 
-        public PerimeterPath get() {
-            return new PerimeterPath(path);
+        public Path get() {
+            return new Path(path);
         }
     }
     //endregion
 
     //region Builder
-    public static class Builder implements Supplier<PerimeterPath> {
+    @NoArgsConstructor
+    public static class Builder implements Supplier<Path> {
 
         private final List<String> path = new ArrayList<>();
 
@@ -61,8 +69,8 @@ public final class PerimeterPath implements Iterable<String> {
             return this;
         }
 
-        public PerimeterPath get() {
-            return new PerimeterPath(path);
+        public Path get() {
+            return new Path(path);
         }
     }
     //endregion

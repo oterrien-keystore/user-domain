@@ -6,10 +6,10 @@ import lombok.Getter;
 public final class UserRightServiceProvider {
 
     @Getter
-    public static final UserRightServiceProvider Instance = new UserRightServiceProvider();
+    private static final UserRightServiceProvider Instance = new UserRightServiceProvider();
 
     @Getter
-    public final UserRightServiceFactory factory;
+    private final UserRightServiceFactory factory;
 
     private UserRightServiceProvider() {
         this.factory = new UserRightServiceFactory();
