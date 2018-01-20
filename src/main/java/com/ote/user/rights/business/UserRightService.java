@@ -20,7 +20,7 @@ class UserRightService implements IUserRightService {
 
     @Override
     public boolean doesUserOwnPrivilegeForApplicationOnPerimeter(String user, String application, String perimeter, String privilege)
-            throws UserNotFoundException, ApplicationNotFoundException, RoleNotFoundException, PerimeterNotFoundException, PrivilegeNotFoundException {
+            throws UserRightServiceException {
 
         if (!userRightRepository.isUserDefined(user)) {
             throw new UserNotFoundException(user);
@@ -48,7 +48,7 @@ class UserRightService implements IUserRightService {
 
         return userRightRepository.getPerimeters(user, application).
                 stream().
-                filter(p -> perimeterPaths.stream().anyMatch(r -> r.equalsIgnoreCase(p.getCode()))). // get only Perimeter which belons to perimeterPaths
+                filter(p -> perimeterPaths.stream().anyMatch(r -> r.equalsIgnoreCase(p.getCode()))). // get only Perimeter which belongs to perimeterPaths
                 flatMap(p -> p.getPrivileges().stream()). // get their privileges
                 anyMatch(p -> privilegeHierarchy.isDefined(p)); // return true only if given privilege is defined in privilege hierarchy
     }

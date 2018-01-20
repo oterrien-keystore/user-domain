@@ -1,6 +1,6 @@
 package com.ote.user.rights.api.exception;
 
-public class PrivilegeNotFoundException extends Exception {
+public class PrivilegeNotFoundException extends UserRightServiceException {
 
     private static final String APP_NOT_FOUND_MESSAGE = "Privilege '%s' not found";
 

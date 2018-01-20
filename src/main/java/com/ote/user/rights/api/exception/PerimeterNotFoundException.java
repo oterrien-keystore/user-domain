@@ -1,6 +1,6 @@
 package com.ote.user.rights.api.exception;
 
-public class PerimeterNotFoundException extends Exception {
+public class PerimeterNotFoundException extends UserRightServiceException {
 
     private static final String APP_NOT_FOUND_MESSAGE = "Perimeter '%s' not found";
 

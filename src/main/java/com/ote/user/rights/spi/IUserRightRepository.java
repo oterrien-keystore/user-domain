@@ -3,6 +3,7 @@ package com.ote.user.rights.spi;
 import com.ote.user.rights.api.Path;
 import com.ote.user.rights.api.Perimeter;
 import com.ote.user.rights.api.Privilege;
+import com.ote.user.rights.api.exception.PrivilegeNotFoundException;
 
 import java.util.List;
 
