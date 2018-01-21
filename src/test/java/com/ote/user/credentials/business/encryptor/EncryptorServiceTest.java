@@ -10,15 +10,14 @@ import java.io.BufferedWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.security.SecureRandom;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Slf4j
-public class CredentialTest {
+public class EncryptorServiceTest {
 
     private final static IEncryptorService encryptorService = EncryptorServiceProvider.getInstance().getFactory().createService();
 
@@ -51,7 +50,7 @@ public class CredentialTest {
     }
 
     @Test
-    public void testEncryption() throws Exception {
+    public void testEncryption() {
 
         Scanner scanner = new Scanner(ClassLoader.getSystemResourceAsStream("com/ote/user/credentials/business/sampleEncryptedPasswords.csv"));
         streamScanner(scanner).
@@ -78,7 +77,63 @@ public class CredentialTest {
     }
 
     private static Stream<String> streamScanner(final Scanner scanner) {
-        final Spliterator<String> splt = Spliterators.spliterator(scanner, Long.MAX_VALUE, Spliterator.ORDERED | Spliterator.NONNULL);
-        return StreamSupport.stream(splt, false).onClose(scanner::close);
+        final Spliterator<String> spliterator = Spliterators.spliterator(scanner, Long.MAX_VALUE, Spliterator.ORDERED | Spliterator.NONNULL);
+        return StreamSupport.stream(spliterator, false).onClose(scanner::close);
+    }
+
+    public static class RandomString {
+
+        /**
+         * Generate a random string.
+         */
+        public String nextString() {
+            for (int idx = 0; idx < buf.length; ++idx)
+                buf[idx] = symbols[random.nextInt(symbols.length)];
+            return new String(buf);
+        }
+
+        public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        public static final String lower = upper.toLowerCase(Locale.ROOT);
+
+        public static final String digits = "0123456789";
+
+        public static final String alphanum = upper + lower + digits;
+
+        private final Random random;
+
+        private final char[] symbols;
+
+        private final char[] buf;
+
+        public RandomString(int length, Random random, String symbols) {
+            if (length < 1) throw new IllegalArgumentException();
+            if (symbols.length() < 2) throw new IllegalArgumentException();
+            this.random = Objects.requireNonNull(random);
+            this.symbols = symbols.toCharArray();
+            this.buf = new char[length];
+        }
+
+        /**
+         * Create an alphanumeric string generator.
+         */
+        public RandomString(int length, Random random) {
+            this(length, random, alphanum);
+        }
+
+        /**
+         * Create an alphanumeric strings from a secure generator.
+         */
+        public RandomString(int length) {
+            this(length, new SecureRandom());
+        }
+
+        /**
+         * Create session identifiers.
+         */
+        public RandomString() {
+            this(21);
+        }
+
     }
 }
