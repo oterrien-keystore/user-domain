@@ -20,6 +20,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import java.util.List;
+
 @ExtendWith(MockitoExtension.class)
 public class UserRightServiceTest {
 
@@ -172,11 +174,9 @@ public class UserRightServiceTest {
         userRight.getPerimeters().add(perimeterObj);
         userRightRepository.addUserRights(userRight);
 
-        Mockito.spy(userRightRepository);
         Mockito.doReturn(true).when(userRightRepository).isPerimeterDefined(perimeter);
 
         boolean result = userRightService.doesUserOwnPrivilegeForApplicationOnPerimeter("steve.jobs", "APPLE", perimeter, privilege);
         Assertions.assertThat(result).isTrue();
     }
-
 }

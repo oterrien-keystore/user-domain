@@ -26,4 +26,6 @@ public interface IUserRightRepository {
     List<Perimeter> getPerimeters(String user, String application);
 
     Privilege getPrivilegeHierarchy(String privilege);
+
+    void put(String user, String application, Perimeter perimeter);
 }

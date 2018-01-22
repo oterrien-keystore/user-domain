@@ -1,5 +1,6 @@
 package com.ote.user.rights.business.common;
 
+import com.ote.common.OptionalConsumer;
 import com.ote.user.rights.api.Path;
 import com.ote.user.rights.api.Perimeter;
 import com.ote.user.rights.api.Privilege;
@@ -84,5 +85,23 @@ public class UserRightRepositoryMock implements IUserRightRepository {
 
     public void addUserRights(UserRightTest... userRights) {
         this.userRights.addAll(Arrays.asList(userRights));
+    }
+
+    @Override
+    public void put(String user, String application, Perimeter perimeter) {
+
+        UserRightTest userRight = userRights.stream().
+                filter(p -> p.getUser().equalsIgnoreCase(user)).
+                filter(p -> p.getApplication().equalsIgnoreCase(application)).
+                findAny().get();
+
+        OptionalConsumer.of(userRight.getPerimeters().stream().
+                filter(p -> p.getCode().equalsIgnoreCase(perimeter.getCode())).
+                findAny()).
+                ifPresent(p -> p.getPrivileges().addAll(p.getPrivileges())).
+                ifNotPresent(() -> {
+                    userRight.getPerimeters().add(perimeter);
+                    this.addUserRights(userRight);
+                });
     }
 }

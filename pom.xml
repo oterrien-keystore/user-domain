@@ -16,6 +16,11 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.ote.common</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
