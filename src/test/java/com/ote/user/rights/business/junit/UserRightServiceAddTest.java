@@ -78,7 +78,7 @@ public class UserRightServiceAddTest {
 
         userRightService.addRights("steve.jobs", "APPLE", "ACCOUNTING", "OTHER");
 
-        Optional<Perimeter> accountingPerimeter = userRightService.getRights("steve.jobs", "APPLE").
+        Optional<Perimeter> accountingPerimeter = userRightRepository.getPerimeters("steve.jobs", "APPLE").
                 stream().
                 filter(p -> p.getCode().equals("ACCOUNTING")).
                 findAny();
@@ -107,7 +107,7 @@ public class UserRightServiceAddTest {
 
         userRightService.addRights("steve.jobs", "APPLE", "ACCOUNTING", newPrivilege);
 
-        Optional<Perimeter> accountingPerimeter = userRightService.getRights("steve.jobs", "APPLE").
+        Optional<Perimeter> accountingPerimeter = userRightRepository.getPerimeters("steve.jobs", "APPLE").
                 stream().
                 filter(p -> p.getCode().equals("ACCOUNTING")).
                 findAny();
