@@ -38,6 +38,15 @@ public final class Path implements Iterable<String> {
         return StreamSupport.stream(this.spliterator(), false);
     }
 
+    public static List<String> extractAll(String perimeter) {
+        Path.Builder builder = new Path.Builder();
+        return new Path.Parser(perimeter).get().
+                stream().
+                peek(p -> builder.then(p)).
+                map(p -> builder.get().toString()).
+                collect(Collectors.toList());
+    }
+
     //region Parser
     public static class Parser implements Supplier<Path> {
 
