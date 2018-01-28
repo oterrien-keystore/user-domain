@@ -16,5 +16,7 @@ public class Perimeter {
 
     private final Set<String> privileges = new HashSet<>();
 
-
+    public Path getPath() {
+        return new Path.Parser(code).get();
+    }
 }

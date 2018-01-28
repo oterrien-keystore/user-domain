@@ -23,7 +23,7 @@ public class Privilege {
         return result;
     }
 
-    public boolean isSameHierarchy(Privilege other){
+    /*public boolean isSameHierarchy(Privilege other){
         return isDefined(other.getCode()) || other.isDefined(code);
-    }
+    }*/
 }

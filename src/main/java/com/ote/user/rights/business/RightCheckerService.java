@@ -1,48 +1,32 @@
 package com.ote.user.rights.business;
 
-import com.ote.user.rights.api.IUserRightService;
+import com.ote.user.rights.api.IRightCheckerService;
 import com.ote.user.rights.api.Path;
 import com.ote.user.rights.api.Perimeter;
 import com.ote.user.rights.api.Privilege;
 import com.ote.user.rights.api.exception.*;
-import com.ote.user.rights.spi.IUserRightRepository;
+import com.ote.user.rights.spi.IRightCheckerRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-class UserRightService implements IUserRightService {
+class RightCheckerService implements IRightCheckerService {
 
-    private final IUserRightRepository userRightRepository;
+    private final IRightCheckerRepository userRightRepository;
 
     @Override
     public boolean doesUserOwnPrivilegeForApplicationOnPerimeter(String user, String application, String perimeter, String privilege)
             throws UserRightServiceException {
 
-        if (!userRightRepository.isUserDefined(user)) {
-            throw new UserNotFoundException(user);
-        }
-
-        if (!userRightRepository.isApplicationDefined(application)) {
-            throw new ApplicationNotFoundException(application);
-        }
-
-        if (!userRightRepository.isPerimeterDefined(perimeter)) {
-            throw new PerimeterNotFoundException(perimeter);
-        }
-
-        if (!userRightRepository.isPrivilegeDefined(privilege)) {
-            throw new PrivilegeNotFoundException(privilege);
-        }
-
-        if (!userRightRepository.isRoleDefined(user, application)) {
-            throw new RoleNotFoundException(user, application);
-        }
+        assertUserFound(user);
+        assertApplicationFound(application);
+        assertPerimeterFound(perimeter);
+        assertPrivilegeFound(privilege);
+        assertRoleFound(user, application);
 
         List<Perimeter> userRights = userRightRepository.getPerimeters(user, application);
 
@@ -57,7 +41,37 @@ class UserRightService implements IUserRightService {
                 anyMatch(p -> privilegeHierarchy.isDefined(p)); // return true only if given privilege is defined in privilege hierarchy
     }
 
-    @Override
+    private void assertUserFound(String user) throws UserNotFoundException {
+        if (!userRightRepository.isUserDefined(user)) {
+            throw new UserNotFoundException(user);
+        }
+    }
+
+    private void assertApplicationFound(String application) throws ApplicationNotFoundException {
+        if (!userRightRepository.isApplicationDefined(application)) {
+            throw new ApplicationNotFoundException(application);
+        }
+    }
+
+    private void assertPerimeterFound(String perimeter) throws PerimeterNotFoundException {
+        if (!userRightRepository.isPerimeterDefined(perimeter)) {
+            throw new PerimeterNotFoundException(perimeter);
+        }
+    }
+
+    private void assertPrivilegeFound(String privilege) throws PrivilegeNotFoundException {
+        if (!userRightRepository.isPrivilegeDefined(privilege)) {
+            throw new PrivilegeNotFoundException(privilege);
+        }
+    }
+
+    private void assertRoleFound(String user, String application) throws RightNotFoundException {
+        if (!userRightRepository.isRoleDefined(user, application)) {
+            throw new RightNotFoundException(user, application);
+        }
+    }
+
+    /*@Override
     public void addRights(String user, String application, String perimeter, String privilege) throws UserRightServiceException {
 
         if (!userRightRepository.isUserDefined(user)) {
@@ -106,5 +120,5 @@ class UserRightService implements IUserRightService {
                         });
             }
         }
-    }
+    }*/
 }

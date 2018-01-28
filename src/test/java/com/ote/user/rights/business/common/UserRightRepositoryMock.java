@@ -4,13 +4,13 @@ import com.ote.common.OptionalConsumer;
 import com.ote.user.rights.api.Path;
 import com.ote.user.rights.api.Perimeter;
 import com.ote.user.rights.api.Privilege;
-import com.ote.user.rights.spi.IUserRightRepository;
+import com.ote.user.rights.spi.IRightCheckerRepository;
 import lombok.Getter;
 import org.junit.jupiter.api.Assumptions;
 
 import java.util.*;
 
-public class UserRightRepositoryMock implements IUserRightRepository {
+public class UserRightRepositoryMock implements IRightCheckerRepository {
 
     @Getter
     private List<UserRightTest> userRights = new ArrayList<>();
@@ -87,7 +87,7 @@ public class UserRightRepositoryMock implements IUserRightRepository {
         this.userRights.addAll(Arrays.asList(userRights));
     }
 
-    @Override
+/*    @Override
     public void put(String user, String application, Perimeter perimeter) {
 
         UserRightTest userRight = userRights.stream().
@@ -103,5 +103,5 @@ public class UserRightRepositoryMock implements IUserRightRepository {
                     userRight.getPerimeters().add(perimeter);
                     this.addUserRights(userRight);
                 });
-    }
+    }*/
 }

@@ -1,9 +1,9 @@
 package com.ote.user.rights.business.cucumber;
 
-import com.ote.user.rights.api.IUserRightService;
+import com.ote.user.rights.api.IRightCheckerService;
 import com.ote.user.rights.api.Perimeter;
 import com.ote.user.rights.api.Privilege;
-import com.ote.user.rights.api.UserRightServiceProvider;
+import com.ote.user.rights.api.RightServiceProvider;
 import com.ote.user.rights.business.common.PrivilegeTest;
 import com.ote.user.rights.business.common.UserRightRepositoryMock;
 import com.ote.user.rights.business.common.UserRightTest;
@@ -21,13 +21,13 @@ import java.util.List;
 public class StepDefinition {
 
     private UserRightRepositoryMock userRightRepository = new UserRightRepositoryMock();
-    private IUserRightService userRightService;
+    private IRightCheckerService userRightService;
     private boolean result;
     private Exception exception;
 
     @Before
     public void init() {
-        this.userRightService = UserRightServiceProvider.getInstance().getFactory().createService(userRightRepository);
+        this.userRightService = RightServiceProvider.getInstance().getFactory().createService(userRightRepository);
     }
 
     @After

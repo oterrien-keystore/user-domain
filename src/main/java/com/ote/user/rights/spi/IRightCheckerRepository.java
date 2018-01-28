@@ -7,7 +7,7 @@ import com.ote.user.rights.api.exception.PrivilegeNotFoundException;
 
 import java.util.List;
 
-public interface IUserRightRepository {
+public interface IRightCheckerRepository {
 
     boolean isUserDefined(String user);
 
@@ -26,6 +26,4 @@ public interface IUserRightRepository {
     List<Perimeter> getPerimeters(String user, String application);
 
     Privilege getPrivilegeHierarchy(String privilege);
-
-    void put(String user, String application, Perimeter perimeter);
 }
