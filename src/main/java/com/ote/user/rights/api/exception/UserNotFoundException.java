@@ -1,6 +1,6 @@
 package com.ote.user.rights.api.exception;
 
-public class UserNotFoundException extends UserRightServiceException {
+public class UserNotFoundException extends Exception {
 
     private static final String USR_NOT_FOUND_MESSAGE = "User '%s' not found";
 

@@ -20,7 +20,7 @@ class RightCheckerService implements IRightCheckerService {
 
     @Override
     public boolean doesUserOwnPrivilegeForApplicationOnPerimeter(String user, String application, String perimeter, String privilege)
-            throws UserRightServiceException {
+            throws ApplicationNotFoundException, PerimeterNotFoundException, PrivilegeNotFoundException, UserNotFoundException, RightNotFoundException {
 
         assertUserFound(user);
         assertApplicationFound(application);

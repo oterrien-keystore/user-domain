@@ -1,6 +1,6 @@
 package com.ote.user.rights.api.exception;
 
-public class RightNotFoundException extends UserRightServiceException {
+public class RightNotFoundException extends Exception {
 
     private static final String ROLE_APP_NOT_FOUND_MESSAGE = "Role not found for user '%s' and application '%s'";
 
